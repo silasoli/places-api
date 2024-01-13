@@ -21,17 +21,16 @@ export class UsersService {
   }
 
   private async transformDto(dto: CreateUserDto): Promise<void> {
-    if (dto.email) dto.email = dto.email.toLowerCase();
+    dto.email = dto.email.toLowerCase();
 
-    if (dto.password)
-      dto.password = await bcrypt.hash(dto.password, this.saltOrRounds);
+    dto.password = await bcrypt.hash(dto.password, this.saltOrRounds);
   }
 
   private async validCreate(dto: CreateUserDto): Promise<void> {
     const user = await this.findByEmail(dto.email);
 
     if (user)
-      throw new InternalServerErrorException(ERRORS.USER.EMAIL_CONFLICT);
+      throw new InternalServerErrorException(ERRORS.USERS.EMAIL_CONFLICT);
   }
 
   public async findByEmail(email: string): Promise<User> {

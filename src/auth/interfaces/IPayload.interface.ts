@@ -1,5 +1,5 @@
 export interface Ipayload {
-  id?: number;
+  id: number;
 
   email: string;
 
@@ -7,7 +7,7 @@ export interface Ipayload {
 }
 
 export interface IloginPayload {
-  id?: number;
+  id: number;
 
   email: string;
 

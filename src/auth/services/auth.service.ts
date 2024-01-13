@@ -1,9 +1,10 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/services/users.service';
 import { Ilogin } from '../interfaces/Ilogin.interface';
 import { UserLoginDto } from '../dto/user-login.dto';
 import { UserLoginResponseDto } from '../dto/user-login-response.dto';
+import { ERRORS } from 'src/utils/constants/errors';
 
 @Injectable()
 export class AuthService {
@@ -43,7 +44,9 @@ export class AuthService {
     dto: UserLoginDto,
   ): Promise<UserLoginResponseDto> {
     const isValidUser = await this.validateUser(dto);
-    if (!isValidUser) throw new ForbiddenException('Credenciais inválidas');
+
+    if (!isValidUser)
+      throw new InternalServerErrorException(ERRORS.AUTH.INVALID_CREDENTIALS);
 
     return this.sign(isValidUser);
   }
