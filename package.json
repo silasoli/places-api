@@ -24,6 +24,7 @@
     "migration:revert": "npm run typeorm migration:revert -- -d src/database/ormconfig.ts"
   },
   "dependencies": {
+    "@faker-js/faker": "^8.0.2",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.1.1",
     "@nestjs/core": "^10.0.0",

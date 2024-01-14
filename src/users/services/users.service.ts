@@ -4,7 +4,7 @@ import { User } from '../../database/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
-import { ERRORS } from 'src/utils/constants/errors';
+import { ERRORS } from '../../utils/constants/errors';
 import { ConfigService } from '@nestjs/config';
 import { UserResponseDto } from '../dto/user-response.dto';
 
@@ -26,7 +26,7 @@ export class UsersService {
     dto.password = await bcrypt.hash(dto.password, this.saltOrRounds);
   }
 
-  private async validCreate(dto: CreateUserDto): Promise<void> {
+  public async validCreate(dto: CreateUserDto): Promise<void> {
     const user = await this.findByEmail(dto.email);
 
     if (user) throw ERRORS.USERS.EMAIL_CONFLICT;

@@ -15,6 +15,10 @@ export class UsersController {
     description: 'User created successfully',
     type: UserResponseDto
   })
+  @ApiResponse({
+    status: 409,
+    description: 'Email already used',
+  })
   @ApiBody({ type: CreateUserDto })
   @Post()
   public create(@Body() dto: CreateUserDto): Promise<UserResponseDto> {
