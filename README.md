@@ -44,7 +44,7 @@ $ npm run start:prod
 # run migrations
 $ npm run migration:run
 ```
-## Test commands
+## Test Commands
 
 ```bash
 # run coverage
