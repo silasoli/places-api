@@ -11,7 +11,7 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Create user' })
   @ApiResponse({
-    status: 200,
+    status: 201,
     description: 'User created successfully',
     type: UserResponseDto
   })

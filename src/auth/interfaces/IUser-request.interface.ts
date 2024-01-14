@@ -1,6 +1,6 @@
-import { IvalidateReturn } from './Ivalidate.interface';
+import { IValidateReturn } from './IValidate.interface';
 
 export interface RequestWithUser {
   Request;
-  user: IvalidateReturn;
+  user: IValidateReturn;
 }

@@ -1,4 +1,4 @@
-export interface Ivalidate {
+export interface IValidate {
   sub: number;
 
   iat: number;
@@ -6,6 +6,6 @@ export interface Ivalidate {
   exp: number;
 }
 
-export interface IvalidateReturn {
+export interface IValidateReturn {
   id: number;
 }

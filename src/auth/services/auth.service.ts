@@ -1,7 +1,7 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/services/users.service';
-import { Ilogin } from '../interfaces/Ilogin.interface';
+import { ILogin } from '../interfaces/ILogin.interface';
 import { UserLoginDto } from '../dto/user-login.dto';
 import { UserLoginResponseDto } from '../dto/user-login-response.dto';
 import { ERRORS } from 'src/utils/constants/errors';
@@ -13,7 +13,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  private async validateUser(dto: UserLoginDto): Promise<Ilogin> {
+  private async validateUser(dto: UserLoginDto): Promise<ILogin> {
     const user = await this.usersService.findByEmail(dto.email);
 
     if (!user) return null;
@@ -28,7 +28,7 @@ export class AuthService {
     return { id: user.id, email: user.email };
   }
 
-  private async sign(user: Ilogin): Promise<UserLoginResponseDto> {
+  private async sign(user: ILogin): Promise<UserLoginResponseDto> {
     const { id, email } = user;
 
     const payload = { email, sub: id };

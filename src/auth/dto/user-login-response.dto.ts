@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IloginPayload } from '../interfaces/Ipayload.interface';
+import { ILoginPayload } from '../interfaces/IPayload.interface';
 
 export class UserLoginResponseDto {
-  constructor(user: IloginPayload) {
+  constructor(user: ILoginPayload) {
     const { id, email, access_token } = user;
 
     return { id, email, access_token };

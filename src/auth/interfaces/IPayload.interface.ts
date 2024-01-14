@@ -1,4 +1,4 @@
-export interface Ipayload {
+export interface IPayload {
   id: number;
 
   email: string;
@@ -6,7 +6,7 @@ export interface Ipayload {
   access_token: string;
 }
 
-export interface IloginPayload {
+export interface ILoginPayload {
   id: number;
 
   email: string;
