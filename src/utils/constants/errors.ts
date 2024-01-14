@@ -1,4 +1,8 @@
-import { ConflictException, ForbiddenException } from '@nestjs/common';
+import {
+  ConflictException,
+  ForbiddenException,
+  NotFoundException,
+} from '@nestjs/common';
 
 export const ERRORS = {
   USERS: {
@@ -12,5 +16,11 @@ export const ERRORS = {
       id: 'AUTH-001',
       message: 'Invalid credentials',
     })
+  },
+  PLACES: {
+    NOT_FOUND: new NotFoundException({
+      id: 'PLACES-001',
+      message: 'Place not found',
+    }) 
   }
 };

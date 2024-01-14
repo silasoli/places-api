@@ -1,9 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreatePlaceDto } from '../dto/create-place.dto';
 import { UpdatePlaceDto } from '../dto/update-place.dto';
 import { Place } from 'src/database/entities/place.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, ILike, Repository } from 'typeorm';
+import { ERRORS } from 'src/utils/constants/errors';
+import { PlaceResponseDto } from '../dto/place-response.dto';
+import { PlaceQueryDto } from '../dto/place-query.dto';
 
 @Injectable()
 export class PlacesService {
@@ -12,36 +15,43 @@ export class PlacesService {
     private readonly repository: Repository<Place>,
   ) {}
 
-  private async transformDto(
-    dto: CreatePlaceDto | UpdatePlaceDto,
-  ): Promise<void> {
-    dto.name = dto.name.toLowerCase();
-  }
-
-  public async create(dto: CreatePlaceDto): Promise<Place> {
-    await this.transformDto(dto);
-
+  public async create(dto: CreatePlaceDto): Promise<PlaceResponseDto> {
     const place = this.repository.create(dto);
 
-    return this.repository.save(place);
+    const created = await this.repository.save(place);
+
+    return new PlaceResponseDto(created);
   }
 
-  public async findAll(): Promise<Place[]> {
-    return this.repository.find();
+  public async findAll(query: PlaceQueryDto): Promise<Place[]> {
+    const where: FindOptionsWhere<Place> = {};
+
+    if (query.name) where.name = ILike(`%${query.name}%`);
+
+    const places = await this.repository.find({ where });
+
+    return places.map((video) => new PlaceResponseDto(video));
   }
 
   public async findOne(id: number): Promise<Place> {
-    return this.repository.findOneOrFail({
+    const place = await this.repository.findOne({
       where: { id },
     });
+
+    if (!place) throw new InternalServerErrorException(ERRORS.PLACES.NOT_FOUND);
+
+    return place;
   }
 
-  public async update(id: number, dto: UpdatePlaceDto): Promise<Place> {
-    const place = await this.repository.findOneOrFail({ where: { id } });
+  public async update(
+    id: number,
+    dto: UpdatePlaceDto,
+  ): Promise<PlaceResponseDto> {
+    const place = await this.findOne(id);
 
-    await this.transformDto(dto);
+    const updated = await this.repository.save({ ...place, ...dto });
 
-    return this.repository.save({ ...place, ...dto });
+    return new PlaceResponseDto(updated);
   }
 
   public async remove(id: number): Promise<void> {

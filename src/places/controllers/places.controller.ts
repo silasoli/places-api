@@ -8,13 +8,24 @@ import {
   Delete,
   UseGuards,
   HttpCode,
+  Query,
 } from '@nestjs/common';
 import { PlacesService } from '../services/places.service';
 import { CreatePlaceDto } from '../dto/create-place.dto';
 import { UpdatePlaceDto } from '../dto/update-place.dto';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { AuthUserJwtGuard } from 'src/auth/guards/auth-user-jwt.guard';
+import { IDQueryDTO } from '../dto/id-query.dto';
+import { PlaceResponseDto } from '../dto/place-response.dto';
+import { PlaceQueryDto } from '../dto/place-query.dto';
 
+@ApiBearerAuth()
 @ApiTags('Places')
 @Controller('places')
 @UseGuards(AuthUserJwtGuard)
@@ -25,11 +36,13 @@ export class PlacesController {
   @ApiResponse({
     status: 200,
     description: 'Place created successfully',
-    // type: UserResponseDto
+    type: PlaceResponseDto,
   })
   @ApiBody({ type: CreatePlaceDto })
   @Post()
-  public create(@Body() createPlaceDto: CreatePlaceDto) {
+  public create(
+    @Body() createPlaceDto: CreatePlaceDto,
+  ): Promise<PlaceResponseDto> {
     return this.placesService.create(createPlaceDto);
   }
 
@@ -37,34 +50,37 @@ export class PlacesController {
   @ApiResponse({
     status: 200,
     description: 'Place listing returned successfully',
-    // type: PaginatedResponseVideosDto,
+    type: [PlaceResponseDto],
   })
   @Get()
-  public findAll() {
-    return this.placesService.findAll();
+  public findAll(@Query() query: PlaceQueryDto): Promise<PlaceResponseDto[]> {
+    return this.placesService.findAll(query);
   }
 
   @ApiOperation({ summary: 'Search place by id' })
   @ApiResponse({
     status: 200,
     description: 'Place returned successfully',
-    // type: VideoResponseDto,
+    type: PlaceResponseDto,
   })
   @Get(':id([0-9]+)')
-  public findOne(@Param('id') id: string) {
-    return this.placesService.findOne(+id);
+  public findOne(@Param() data: IDQueryDTO): Promise<PlaceResponseDto> {
+    return this.placesService.findOne(data.id);
   }
 
   @ApiOperation({ summary: 'Update place' })
   @ApiResponse({
     status: 200,
     description: 'Place updated successfully',
-    // type: UserResponseDto
+    type: PlaceResponseDto
   })
   @ApiBody({ type: UpdatePlaceDto })
   @Patch(':id([0-9]+)')
-  public update(@Param('id') id: string, @Body() dto: UpdatePlaceDto) {
-    return this.placesService.update(+id, dto);
+  public update(
+    @Param() data: IDQueryDTO,
+    @Body() dto: UpdatePlaceDto,
+  ): Promise<PlaceResponseDto> {
+    return this.placesService.update(data.id, dto);
   }
 
   @ApiOperation({ summary: 'Delete a place by id' })
@@ -74,7 +90,7 @@ export class PlacesController {
   })
   @HttpCode(204)
   @Delete(':id([0-9]+)')
-  public remove(@Param('id') id: string) {
-    return this.placesService.remove(+id);
+  public remove(@Param() data: IDQueryDTO): Promise<void> {
+    return this.placesService.remove(data.id);
   }
 }
