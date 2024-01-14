@@ -3,9 +3,9 @@ import { User } from 'src/database/entities/user.entity';
 
 export class UserResponseDto {
   constructor(user: User) {
-    const { id, email } = user;
+    const { id, email, created_at, updated_at } = user;
 
-    return { id, email };
+    return { id, email, created_at, updated_at };
   }
 
   @ApiProperty({ required: true })
@@ -13,4 +13,11 @@ export class UserResponseDto {
 
   @ApiProperty({ required: true })
   email: string;
+
+  
+  @ApiProperty({ required: true })
+  created_at: Date;
+
+  @ApiProperty({ required: true })
+  updated_at: Date;
 }
