@@ -8,6 +8,8 @@ import {
   SwaggerModule,
 } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
+import * as moment from 'moment-timezone'
+
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -37,6 +39,13 @@ async function bootstrap() {
   };
 
   SwaggerModule.setup('docs', app, document, customOptions);
+
+  Date.prototype.toJSON = function (): string {
+    return moment(this)
+      .tz('America/Sao_Paulo')
+      .subtract(3, 'hours')
+      .format('YYYY-MM-DDTHH:mm:ss.SSS');
+  };
 
   const port = configService.get('PORT');
   if (!port) throw new Error("Application port wasn't found");
