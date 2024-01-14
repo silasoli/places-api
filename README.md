@@ -44,6 +44,12 @@ $ npm run start:prod
 # run migrations
 $ npm run migration:run
 ```
+## Test commands
+
+```bash
+# run coverage
+$ npm run test:cov
+```
 ## Support
 
 To facilitate the consumption of the API, the Swagger UI library was used, the documentation is located in the "/docs" route.
