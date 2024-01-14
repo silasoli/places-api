@@ -14,7 +14,6 @@ export class PlaceResponseDto {
   @ApiProperty({ required: true })
   name: string;
 
-  
   @ApiProperty({ required: true })
   city: string;
   

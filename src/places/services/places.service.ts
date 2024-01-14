@@ -38,7 +38,7 @@ export class PlacesService {
       where: { id },
     });
 
-    if (!place) throw new InternalServerErrorException(ERRORS.PLACES.NOT_FOUND);
+    if (!place) throw ERRORS.PLACES.NOT_FOUND;
 
     return place;
   }

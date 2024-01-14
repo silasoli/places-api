@@ -29,8 +29,7 @@ export class UsersService {
   private async validCreate(dto: CreateUserDto): Promise<void> {
     const user = await this.findByEmail(dto.email);
 
-    if (user)
-      throw new InternalServerErrorException(ERRORS.USERS.EMAIL_CONFLICT);
+    if (user) throw ERRORS.USERS.EMAIL_CONFLICT;
   }
 
   public async findByEmail(email: string): Promise<User> {

@@ -34,7 +34,7 @@ export class PlacesController {
 
   @ApiOperation({ summary: 'Create place' })
   @ApiResponse({
-    status: 200,
+    status: 201,
     description: 'Place created successfully',
     type: PlaceResponseDto,
   })

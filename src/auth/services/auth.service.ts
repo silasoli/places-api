@@ -45,8 +45,7 @@ export class AuthService {
   ): Promise<UserLoginResponseDto> {
     const isValidUser = await this.validateUser(dto);
 
-    if (!isValidUser)
-      throw new InternalServerErrorException(ERRORS.AUTH.INVALID_CREDENTIALS);
+    if (!isValidUser) throw ERRORS.AUTH.INVALID_CREDENTIALS;
 
     return this.sign(isValidUser);
   }
