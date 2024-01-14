@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePlaceDto } from '../dto/create-place.dto';
 import { UpdatePlaceDto } from '../dto/update-place.dto';
-import { Place } from 'src/database/entities/place.entity';
+import { Place } from '../../database/entities/place.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOptionsWhere, ILike, Repository } from 'typeorm';
-import { ERRORS } from 'src/utils/constants/errors';
+import { ERRORS } from '../../utils/constants/errors';
 import { PlaceResponseDto } from '../dto/place-response.dto';
 import { PlaceQueryDto } from '../dto/place-query.dto';
 

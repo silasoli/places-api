@@ -20,7 +20,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { AuthUserJwtGuard } from 'src/auth/guards/auth-user-jwt.guard';
+import { AuthUserJwtGuard } from '../../auth/guards/auth-user-jwt.guard';
 import { IDQueryDTO } from '../dto/id-query.dto';
 import { PlaceResponseDto } from '../dto/place-response.dto';
 import { PlaceQueryDto } from '../dto/place-query.dto';
