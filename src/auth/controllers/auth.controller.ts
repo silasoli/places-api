@@ -15,6 +15,10 @@ export class AuthController {
     description: 'Login successfully',
     type: UserLoginResponseDto
   })
+  @ApiResponse({
+    status: 403,
+    description: 'Invalid credentials',
+  })
   @ApiBody({ type: UserLoginDto })
   @Post('/login')
   public async login(@Body() dto: UserLoginDto): Promise<UserLoginResponseDto> {

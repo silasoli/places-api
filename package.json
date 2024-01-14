@@ -86,6 +86,17 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
+    "coveragePathIgnorePatterns": [
+      ".module.ts",
+      ".entity.ts",
+      "/database",
+      "/utils",
+      "/guards",
+      ".listener.ts",
+      ".config.ts",
+      ".strategy.ts",
+      "main.ts"
+    ],
     "testEnvironment": "node"
   }
 }

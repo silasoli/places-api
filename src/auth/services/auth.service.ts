@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UsersService } from 'src/users/services/users.service';
+import { UsersService } from '../../users/services/users.service';
 import { ILogin } from '../interfaces/ILogin.interface';
 import { UserLoginDto } from '../dto/user-login.dto';
 import { UserLoginResponseDto } from '../dto/user-login-response.dto';
-import { ERRORS } from 'src/utils/constants/errors';
+import { ERRORS } from '../../utils/constants/errors';
 
 @Injectable()
 export class AuthService {
