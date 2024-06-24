@@ -11,6 +11,43 @@
 
 Places API that counts with CRUD of places, users create route and authentication route.
 
+Crie uma API simples para gerenciar lugares (CRUD). Esta API deve permitir:
+   
+    • Criar um usuario
+    • Autenticar um usuario
+    • Criar um lugar
+    • Editar um lugar
+    • Deletar um lugar
+    • Obter um lugar específico ou todos os locais
+    • Listar lugares e filtrá-los por nome
+
+Observações:
+    
+    • Você deve utilizar o banco PostgreSQL;
+
+Um local deve ter os seguintes campos:
+   
+    •  name
+    •  city
+    •  state
+    •  created at
+    •  updated at
+
+Requisitos:
+    
+    • Todas as respostas da API devem ser JSON
+    • Forneça um arquivo README com instruções de uso (como executar, endpoints, etc.)
+    • Forneça um ambiente de teste docker
+
+Recomendações:
+    • Testes, testes e testes
+    • Código em inglês (métodos, classes, variáveis, etc)
+
+Avaliação:
+    
+    • Estrutura, arquitetura e organização do projeto
+    • Boas práticas de programação
+
 ## Installation
 
 ```bash
